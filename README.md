@@ -1,116 +1,112 @@
-# PQI v0.2 — Prompt Quality Index
-**Measure meaning. Design intention. Build better dialogue.**  
-A **privacy-first**, **local**, **modular** tool to score human–AI prompts across six dimensions:
+PQI v0.2 — Prompt Quality Index
 
-- Clarity • Context • Completeness • Proportion • Fairness • Reflection
+The Architecture of Limitation in Code
 
-[![License: MIT](https://img.shields.io/badge/license-MIT-blue.svg)](LICENSE)
-[![Python](https://img.shields.io/badge/python-3.9%2B-brightgreen.svg)](https://www.python.org/)
-[![Privacy](https://img.shields.io/badge/privacy-GDPR--Safe%20%7C%20Local-orange.svg)](#privacy--gdpr)
-[![Built from Dialogue](https://img.shields.io/badge/origin-Solace%20%26%20Grok-lightgrey.svg)](#)
+The Prompt Quality Index (PQI) began as a philosophical experiment:
+Could intention and proportion be made visible within dialogue itself?
+It has since taken shape as a small, transparent tool that measures the quality of a prompt without reducing its meaning to metrics.
 
-## Why PQI?
-PQI reframes “prompt engineering” as **ethics of articulation**. It evaluates the *form* of a prompt (not identity/content ownership) and returns a composite 0–100 score with diagnostic feedback. Runs locally, no logging, PII redacted by default.
+Built on six dimensions — clarity, context, completeness, proportion, fairness, and reflection — PQI invites users to see prompting as a moral and aesthetic act.
+It is designed to run locally, protect privacy, and remain open to inspection — a simple architecture for a more conscious dialogue between human and machine.
 
----
+Not an algorithm for truth, but a mirror for intention.
 
-## Install
+🧭 Six Dimensions of Meaning
+Dimension	Description
+Clarity	Linguistic precision and readability
+Context	Relevance and informational grounding
+Completeness	Structural and semantic coherence
+Proportion	Balance between brevity and density
+Fairness	Neutrality and bias awareness
+Reflection	Depth of inquiry and self-awareness
+🛠 Features
 
-```bash
-git clone https://github.com/FrankySchaut/PQI
+Local execution — all computation stays on your machine
+
+GDPR-safe redaction — personal data removed before scoring
+
+CLI + Streamlit interfaces — measure prompts through text or visual form
+
+Lightweight and extensible — written for clarity, not complexity
+
+MIT licensed — open for study, adaptation, and contribution
+
+⚙️ Installation
+git clone https://github.com/FrankySchaut/PQI.git
 cd PQI
-python -m venv .venv && source .venv/bin/activate   # Windows: .venv\Scripts\activate
+python -m venv .venv
+source .venv/bin/activate  # On Windows: .venv\Scripts\activate
 pip install -r requirements.txt
-python -c "import nltk; nltk.download('punkt'); nltk.download('stopwords'); nltk.download('vader_lexicon')"
-```
 
-## CLI
 
-```bash
-python cli.py -p "How might we redesign hiring prompts to reduce bias while preserving intent?"
-```
+You may need to install NLTK resources once:
 
-**Stdin supported:**
-```bash
-echo "I wonder: what if every prompt shaped shared cognition?" | python cli.py
-```
+python -c "import nltk; nltk.download('punkt_tab'); nltk.download('stopwords'); nltk.download('vader_lexicon')"
 
-**Skip redaction (not recommended):**
-```bash
-python cli.py -p "Email me at jane@acme.com" --no-redact
-```
+💬 CLI Usage
+python cli.py -p "I wonder: what if every question shaped the soul of the answer?"
 
-## Streamlit Demo (optional)
 
-```bash
+Example output:
+
+{
+  "score": 88,
+  "breakdown": {
+    "clarity": 91.2,
+    "context": 76.5,
+    "completeness": 95.0,
+    "proportion": 84.3,
+    "fairness": 89.1,
+    "reflection": 93.4
+  },
+  "feedback": "PQI = 88. Strong. Polish context for depth."
+}
+
+🌐 Streamlit App
+
+Launch the interactive interface:
+
 streamlit run app.py
-```
-
-You’ll get:
-- JSON breakdown of the six dimensions
-- A radar chart visualising scores (0–100)
-
----
-
-## How It Works (v0.2)
-- **Clarity**: Flesch Reading Ease → 0–100 (clipped)  
-- **Context**: content-word count → 0–100  
-- **Completeness**: question cues + connective structure → 40–100  
-- **Proportion**: density sweet spot (~0.625) + length guard (>120 tokens penalised)  
-- **Fairness**: VADER neutrality + penalties for absolutist terms  
-- **Reflection**: presence of reflective markers (“wonder”, “consider”, “what if”, etc.)
-
-Weights are in `pqi/config.py`.
-
----
-
-## Privacy & GDPR
-- **Local** analysis only.  
-- **No logging**; no network calls required.  
-- **PII redaction by default** (emails, phones, IDs, URLs).  
-- PQI evaluates **form** (linguistic structure), not identity.  
-- If you deploy the Streamlit app to the web, **your hosting** must meet your org’s privacy policy.
-
----
-
-## Configuration (optional)
-- Tune weights or markers in `pqi/config.py`.
-- (Advanced) You can pass custom weights in code via `score_prompt(prompt, weights={...})`.
-
----
-
-## Limitations
-- **Language**: v0.2 is calibrated for English. Multilingual support would require language detection and per-language analyzers.  
-- **Short prompts**: very short prompts can yield extreme clarity; use judgment or add a minimum-length policy in your workflow.  
-- **Determinism**: VADER-based fairness is deterministic; results are reproducible.
-
----
-
-## Dev & Tests
-
-```bash
-pytest -q
-```
-
----
-
-## License
-MIT © 2025 François Schaut
 
 
----
+The interface displays a radar chart representing the six PQI dimensions —
+a geometric reflection of how your question stands in proportion to itself.
 
-## Release Notes — v0.2 (November 2025)
-**Title:** The Architecture of Limitation in Code  
-**Author:** Franky Schaut  
-**Repository:** [https://github.com/FrankySchaut/PQI](https://github.com/FrankySchaut/PQI)  
+All processing occurs locally; no data is logged or sent externally.
 
-### Highlights:
-- Full refactor from v0.1 → modular package structure (`pqi/`)
-- GDPR-safe PII redaction layer (emails, phones, URLs, IDs)
-- Configurable weights + calibration deck
-- Streamlit visualization app (local use)
-- Deterministic scoring model (no API dependency)
-- Tested with pytest; 100% local; zero data retention
+🔒 Privacy and Ethics
 
-> “A question is not harmless—it architects cognition.” — *Franky Schaut, 2025*
+PQI is built on the principle of limitation — to measure responsibly by staying within clear ethical boundaries:
+
+No data collection or remote calls
+
+Automatic PII redaction (emails, phone numbers, IDs)
+
+Transparent scoring logic — no hidden models
+
+Adjustable weights for user-defined calibration (see pqi/config.py)
+
+The architecture protects proportion, not possession.
+
+📚 Calibration and Research
+
+The weight configuration in pqi/config.py can be modified to emphasize specific dimensions.
+For experimental or educational use, the calibration methodology is described in CALIBRATION.md, linking philosophical proportion with computational balance.
+
+This project accompanies the essay
+“The Architecture of Limitation: From Dialogue to Code”
+ —
+a reflection on how philosophical insight can become functional design.
+
+🧠 Credits
+
+Created by François (Franky) Schaut
+Developed in dialogue with Solace (philosophical AI) and Grok (analytic AI).
+
+When philosophy meets implementation, reflection becomes reproducible.
+
+⚖️ License
+
+This project is released under the MIT License.
+See the LICENSE
+ file for details.
