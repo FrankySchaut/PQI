@@ -30,3 +30,23 @@ python -m pytest -q
 
 # optional: generate radar visualization
 python -m pqi.legacy.radar
+
+## 📚 Citation
+
+If you use PQI in your research or writing, please cite it as:
+
+**APA:**
+Schaut, F. (2025). *Prompt Quality Index (PQI) v0.2.1 — The Architecture of Limitation in Code* [Computer software]. Zenodo. https://doi.org/10.5281/zenodo.17567127
+
+**BibTeX:**
+```bibtex
+@software{schaut2025pqi,
+  author       = {Schaut, François},
+  title        = {Prompt Quality Index (PQI) v0.2.1 — The Architecture of Limitation in Code},
+  month        = nov,
+  year         = 2025,
+  publisher    = {Zenodo},
+  version      = {v0.2.1},
+  doi          = {10.5281/zenodo.17567127},
+  url          = {https://doi.org/10.5281/zenodo.17567127}
+}
