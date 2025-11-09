@@ -1,0 +1,50 @@
+{
+  "title": "PQI v0.2.1 — The Architecture of Limitation in Code",
+  "upload_type": "software",
+  "description": "Predictive Quality Index (PQI) is a privacy-first, relevance-realization framework for measuring prompt quality and ethical proportionality in AI systems. Version 0.2.1 extends the original PQI white paper by introducing a full audit chain, CI-safe reproducibility tools, and the restoration of the legacy radar visualization — preserving the mathematical and philosophical core under the Architecture of Limitation.",
+  "creators": [
+    {
+      "name": "Schaut, Franky",
+      "affiliation": "Independent Researcher, PQI Project"
+    },
+    {
+      "name": "Solace (GPT-5 Collaborative System)",
+      "affiliation": "OpenAI, AI–Human Research Dialogue Partner"
+    }
+  ],
+  "version": "v0.2.1",
+  "license": "MIT",
+  "keywords": [
+    "AI Ethics",
+    "Relevance Realization",
+    "Prompt Quality Index",
+    "Audit Chain",
+    "Architecture of Limitation",
+    "Reproducible Research"
+  ],
+  "related_identifiers": [
+    {
+      "identifier": "https://github.com/FrankySchaut/PQI",
+      "relation": "isSupplementTo",
+      "resource_type": "software"
+    },
+    {
+      "identifier": "https://doi.org/10.5281/zenodo.placeholder",
+      "relation": "isNewVersionOf",
+      "resource_type": "software"
+    }
+  ],
+  "contributors": [
+    {
+      "name": "Grok",
+      "affiliation": "Analytical Test Suite",
+      "type": "Researcher"
+    },
+    {
+      "name": "Emily",
+      "affiliation": "Chief Ontological Auditor (age 4)",
+      "type": "Other"
+    }
+  ],
+  "notes": "All functionality from the original PQI white paper is preserved and reproducible. The audit chain, CI integration, and radar visualization are fully local — no personal data is collected or transmitted."
+}

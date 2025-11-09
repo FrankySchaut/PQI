@@ -1,0 +1,40 @@
+# Python
+__pycache__/
+*.py[cod]
+*.pyo
+*.pyd
+*.pkl
+*.log
+
+# Virtual envs
+.env
+.venv/
+venv/
+ENV/
+env.bak/
+env/
+
+# OS / IDE
+.DS_Store
+Thumbs.db
+.vscode/
+.idea/
+*.swp
+
+# Caches / builds
+.cache/
+*.egg-info/
+dist/
+build/
+.eggs/
+pytest_cache/
+.tox/
+htmlcov/
+.coverage
+
+# Streamlit
+.streamlit/
+
+# Notebooks
+.ipynb_checkpoints
+*.ipynb

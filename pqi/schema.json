@@ -1,0 +1,75 @@
+{
+  "$schema": "http://json-schema.org/draft-07/schema#",
+  "title": "Prompt Quality Index (PQI) v0.2 Output Schema",
+  "description": "Standardized output format for the PQI privacy-first prompt evaluation tool.",
+  "type": "object",
+  "properties": {
+    "score": {
+      "type": "integer",
+      "description": "Composite score (0\u2013100)."
+    },
+    "breakdown": {
+      "type": "object",
+      "description": "Per-dimension scores for six PQI categories.",
+      "properties": {
+        "clarity": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "context": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "completeness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "proportion": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "fairness": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        },
+        "reflection": {
+          "type": "number",
+          "minimum": 0,
+          "maximum": 100
+        }
+      },
+      "required": [
+        "clarity",
+        "context",
+        "completeness",
+        "proportion",
+        "fairness",
+        "reflection"
+      ]
+    },
+    "feedback": {
+      "type": "string",
+      "description": "Qualitative summary and advice."
+    },
+    "radar_data": {
+      "type": "array",
+      "items": {
+        "type": "number"
+      },
+      "minItems": 6,
+      "maxItems": 6,
+      "description": "Ordered list of six dimension scores for radar plotting."
+    }
+  },
+  "required": [
+    "score",
+    "breakdown",
+    "feedback",
+    "radar_data"
+  ]
+}

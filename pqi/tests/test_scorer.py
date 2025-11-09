@@ -6,7 +6,4 @@ def test_empty():
 
 def test_transcendent():
     r = score_prompt("I wonder: what if every prompt were a moral act shaping shared consciousness?")
-    assert r["score"] >= 70 # was 80; mark as TODO: re-baseline after calibration
-
-
-# NOTE: Threshold relaxed from 80→70 pending v0.2.1 calibration sweep.
+    assert r["score"] >= 80
