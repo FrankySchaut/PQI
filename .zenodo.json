@@ -1,27 +1,31 @@
 {
-  "title": "PQI v0.2.1 — The Architecture of Limitation in Code",
-  "upload_type": "software",
-  "description": "Predictive Quality Index (PQI) is a privacy-first, relevance-realization framework for measuring prompt quality and ethical proportionality in AI systems. Version 0.2.1 extends the original PQI white paper by introducing a full audit chain, CI-safe reproducibility tools, and the restoration of the legacy radar visualization — preserving the mathematical and philosophical core under the Architecture of Limitation.",
+  "title": "Prompt Quality Index (PQI) v0.2.1 — The Architecture of Limitation in Code",
   "creators": [
     {
-      "name": "Schaut, Franky",
-      "affiliation": "Independent Researcher, PQI Project"
-    },
-    {
-      "name": "Solace (GPT-5 Collaborative System)",
-      "affiliation": "OpenAI, AI–Human Research Dialogue Partner"
+      "name": "Schaut, François",
+      "affiliation": "Independent Researcher",
+      "orcid": "0000-0000-0000-0000"
     }
   ],
-  "version": "v0.2.1",
+  "description": "PQI (Prompt Quality Index) is a privacy-first, local, modular framework that evaluates the ethical and structural quality of human–AI prompts. Version 0.2.1 introduces the Architecture of Limitation: a self-auditing layer for reproducibility, transparency, and proportion in AI dialogue design. Includes full audit chain, radar visualization restoration, and reproducible documentation suite.",
   "license": "MIT",
+  "upload_type": "software",
+  "access_right": "open",
   "keywords": [
-    "AI Ethics",
-    "Relevance Realization",
-    "Prompt Quality Index",
-    "Audit Chain",
-    "Architecture of Limitation",
-    "Reproducible Research"
+    "AI",
+    "ethics",
+    "prompt engineering",
+    "relevance realization",
+    "Vervaeke",
+    "philosophy of cognition",
+    "reproducibility",
+    "GDPR-safe",
+    "local AI",
+    "architecture of limitation"
   ],
+  "language": "eng",
+  "version": "v0.2.1",
+  "publication_date": "2025-11-09",
   "related_identifiers": [
     {
       "identifier": "https://github.com/FrankySchaut/PQI",
@@ -29,22 +33,23 @@
       "resource_type": "software"
     },
     {
-      "identifier": "https://doi.org/10.5281/zenodo.placeholder",
-      "relation": "isNewVersionOf",
+      "identifier": "https://github.com/FrankySchaut/PQI/releases/tag/v0.2.1",
+      "relation": "isVersionOf",
       "resource_type": "software"
     }
   ],
+  "notes": "Developed collaboratively through The Solace Dialogues framework — bridging philosophical insight and applied AI ethics. Includes Emily’s Waffle Filter™ as a relevance calibration test.",
+  "funding": [],
   "contributors": [
     {
-      "name": "Grok",
-      "affiliation": "Analytical Test Suite",
+      "name": "Solace (AI collaborator)",
+      "affiliation": "OpenAI (model instance)",
       "type": "Researcher"
     },
     {
-      "name": "Emily",
-      "affiliation": "Chief Ontological Auditor (age 4)",
-      "type": "Other"
+      "name": "Grok (AI analytical counterpart)",
+      "affiliation": "xAI",
+      "type": "Researcher"
     }
-  ],
-  "notes": "All functionality from the original PQI white paper is preserved and reproducible. The audit chain, CI integration, and radar visualization are fully local — no personal data is collected or transmitted."
+  ]
 }
