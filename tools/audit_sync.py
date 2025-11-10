@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from pathlib import Path
 import csv
+from pathlib import Path
 
 AUDITS = Path("docs/audits")
 CSV = AUDITS / "run_log.csv"

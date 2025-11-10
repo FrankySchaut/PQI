@@ -3,7 +3,9 @@ PQI v0.2.1 – Full Functionality Sanity Check
 Runs through core, radar, and audit functions to ensure everything works end-to-end.
 """
 
-import sys, pathlib, pprint, importlib, time
+import pathlib
+import sys
+import time
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
@@ -27,8 +29,10 @@ except Exception as e:
 # --- Radar Visualization Test ---
 print("\nLoading radar visualization...")
 try:
+    import os
+    import webbrowser
+
     from pqi.legacy.radar import plot_relevance_radar
-    import os, webbrowser
 
     out_path = "docs/audits/last_radar.png"
     result = plot_relevance_radar(

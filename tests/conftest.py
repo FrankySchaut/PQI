@@ -1,12 +1,16 @@
 # tests/conftest.py
 
 # Ensure repo root is importable (so `tools` works)
-import sys, pathlib
+import pathlib
+import sys
 
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parents[1]))
 
-import os, time
+import os
+import time
+
 import pytest
+
 from tools.audit_log import append_run_summary
 
 

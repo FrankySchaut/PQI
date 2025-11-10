@@ -6,7 +6,7 @@ def plot_relevance_radar(*args, **kwargs):
         try:
             m = import_module(mod)
             if hasattr(m, "plot_relevance_radar"):
-                return getattr(m, "plot_relevance_radar")(*args, **kwargs)
+                return m.plot_relevance_radar(*args, **kwargs)
         except Exception:
             continue
     raise RuntimeError(

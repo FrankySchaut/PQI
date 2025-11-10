@@ -1,6 +1,7 @@
 #!/usr/bin/env python3
-from tools.audit_checklist import create_audit_checklist
 from os import getenv
+
+from tools.audit_checklist import create_audit_checklist
 
 
 def main():

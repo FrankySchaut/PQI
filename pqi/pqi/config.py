@@ -3,9 +3,8 @@
 # Repository: https://github.com/FrankySchaut/PQI
 # License: MIT — Privacy-first, local execution
 
-from typing import Dict
 
-DEFAULT_WEIGHTS: Dict[str, float] = {
+DEFAULT_WEIGHTS: dict[str, float] = {
     "clarity": 0.25,
     "context": 0.15,
     "completeness": 0.15,

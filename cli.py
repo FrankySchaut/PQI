@@ -6,6 +6,7 @@
 import argparse
 import json
 import sys
+
 from pqi.redactor import redact
 from pqi.scorer import score_prompt
 

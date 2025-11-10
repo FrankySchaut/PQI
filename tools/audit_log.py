@@ -1,6 +1,6 @@
 #!/usr/bin/env python3
-from pathlib import Path
 from datetime import datetime
+from pathlib import Path
 
 AUDITS = Path("docs/audits")
 AUDITS.mkdir(parents=True, exist_ok=True)

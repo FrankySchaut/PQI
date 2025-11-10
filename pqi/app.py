@@ -3,9 +3,10 @@
 # Repository: https://github.com/FrankySchaut/PQI
 # License: MIT — Privacy-first, local execution
 
-import streamlit as st
 import matplotlib.pyplot as plt
 import numpy as np
+import streamlit as st
+
 from pqi.redactor import redact
 from pqi.scorer import score_prompt
 

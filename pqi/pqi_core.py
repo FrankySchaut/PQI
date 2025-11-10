@@ -1,5 +1,14 @@
+from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Callable, Dict, Any
+from typing import Any, TypedDict, Literal
+
+
+Verdict = Literal["WAFFLE", "NOT_WAFFLE"]
+
+
+class AuditResult(TypedDict):
+    pqi: float
+    verdict: Verdict
 
 
 @dataclass(frozen=True)
@@ -28,27 +37,30 @@ class PQI:
 
     def __init__(
         self,
-        weights: PQIWeights = PQIWeights(),
+        weights: PQIWeights | None = None,
         salience_model: Callable[[Any], float] | None = None,
         grip_model: Callable[[Any], float] | None = None,
         coherence_model: Callable[[Any], float] | None = None,
         waffle_threshold: float = 0.6,
-    ):
-        self.weights = weights.normalized()
-        self.weights.validate()
+    ) -> None:
+        w = weights if weights is not None else PQIWeights()
+        w = w.normalized()
+        w.validate()
+        self.weights = w
+
         self.salience_model = salience_model or (lambda x: float(x.get("salience", 0.0)))
         self.grip_model = grip_model or (lambda x: float(x.get("grip", 0.0)))
         self.coherence_model = coherence_model or (lambda x: float(x.get("coherence", 0.0)))
         self.waffle_threshold = waffle_threshold
 
-    def relevance_vector(self, x: Dict[str, Any]) -> Dict[str, float]:
+    def relevance_vector(self, x: dict[str, Any]) -> dict[str, float]:
         return {
             "salience": self.salience_model(x),
             "grip": self.grip_model(x),
             "coherence": self.coherence_model(x),
         }
 
-    def score(self, x: Dict[str, Any]) -> float:
+    def score(self, x: dict[str, Any]) -> float:
         vec = self.relevance_vector(x)
         a, b, c = self.weights.alpha, self.weights.beta, self.weights.gamma
         s = max(0.0, min(1.0, vec["salience"]))
@@ -56,10 +68,10 @@ class PQI:
         co = max(0.0, min(1.0, vec["coherence"]))
         return a * s + b * g + c * co
 
-    def relevance_audit(self, x: Dict[str, Any]) -> Dict[str, Any]:
+    def relevance_audit(self, x: dict[str, Any]) -> AuditResult:
         pqi = self.score(x)
-        verdict = "NOT_WAFFLE" if pqi >= self.waffle_threshold else "WAFFLE"
+        verdict: Verdict = "NOT_WAFFLE" if pqi >= self.waffle_threshold else "WAFFLE"
         return {"pqi": pqi, "verdict": verdict}
 
-    def emily_filter(self, x: Dict[str, Any]) -> str:
+    def emily_filter(self, x: dict[str, Any]) -> str:
         return self.relevance_audit(x)["verdict"]

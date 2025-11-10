@@ -4,12 +4,13 @@
 # License: MIT — Privacy-first, local execution
 
 import re
-import numpy as np
+
 import nltk
+import numpy as np
 import textstat
-from typing import Dict, Optional, List
-from .config import DEFAULT_WEIGHTS, REFLECTION_MARKERS, BIAS_ABSOLUTES, STRUCTURE_CUES
 from nltk.sentiment import SentimentIntensityAnalyzer
+
+from .config import BIAS_ABSOLUTES, DEFAULT_WEIGHTS, REFLECTION_MARKERS, STRUCTURE_CUES
 
 # One-time safe downloads
 nltk.download("punkt", quiet=True)
@@ -20,7 +21,7 @@ SIA = SentimentIntensityAnalyzer()
 STOP_WORDS = set(nltk.corpus.stopwords.words("english"))
 
 
-def _tokenize(text: str) -> tuple[List[str], List[str]]:
+def _tokenize(text: str) -> tuple[list[str], list[str]]:
     words = nltk.word_tokenize(text)
     content = [w.lower() for w in words if w.isalpha() and w.lower() not in STOP_WORDS]
     return words, content
@@ -31,7 +32,7 @@ def _clarity(prompt: str) -> float:
     return float(np.clip((fre - 30) * (100 / 60), 0, 100))
 
 
-def _context(content_words: List[str]) -> float:
+def _context(content_words: list[str]) -> float:
     return float(np.clip(len(content_words) * 5, 0, 100))
 
 
@@ -55,7 +56,7 @@ def _completeness(prompt: str) -> float:
     return float(min(100, score))
 
 
-def _proportion(words: List[str], content_words: List[str]) -> float:
+def _proportion(words: list[str], content_words: list[str]) -> float:
     if not words:
         return 0.0
     density = len(content_words) / max(1, len(words))
@@ -77,7 +78,7 @@ def _reflection(prompt: str) -> float:
     return float(min(100, count * 20))
 
 
-def score_prompt(prompt: str, weights: Optional[Dict[str, float]] = None) -> Dict:
+def score_prompt(prompt: str, weights: dict[str, float] | None = None) -> dict:
     p = prompt.strip()
     if not p:
         return {"score": 0, "breakdown": {}, "feedback": "Empty prompt. Begin with intention."}
