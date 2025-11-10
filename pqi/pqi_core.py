@@ -1,7 +1,6 @@
 from collections.abc import Callable
 from dataclasses import dataclass
-from typing import Any, TypedDict, Literal
-
+from typing import Any, Literal, TypedDict
 
 Verdict = Literal["WAFFLE", "NOT_WAFFLE"]
 
