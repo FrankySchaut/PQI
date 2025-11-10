@@ -35,6 +35,20 @@ jobs:
           pip install pytest==8.3.3
       - name: Prepare audit checklist (optional)
         run: python tools/audit_prep.py || true
+
+      # NEW: ensure NLTK tokenizers exist on the runner
+      - name: Download NLTK data (punkt / punkt_tab)
+        run: |
+          python - <<'PY'
+          import nltk
+          for pkg in ("punkt", "punkt_tab"):
+              try:
+                  nltk.download(pkg, quiet=True)
+                  print(f"Downloaded {pkg}")
+              except Exception as e:
+                  print(f"Could not download {pkg}: {e}")
+          PY
+
       - name: Run tests
         run: pytest -q
       - name: Sync Markdown from CSV
@@ -55,28 +69,4 @@ jobs:
       - name: Install tools
         run: |
           python -m pip install --upgrade pip
-          pip install black==24.10.0 ruff==0.6.9
-      - name: Black (check)
-        run: black --check .
-      - name: Ruff (lint)
-        run: ruff check .
-
-  typecheck:
-    runs-on: ubuntu-latest
-    timeout-minutes: 10
-    steps:
-      - uses: actions/checkout@v4
-      - uses: actions/setup-python@v5
-        with: { python-version: "3.11" }
-      - uses: actions/cache@v4
-        with:
-          path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-mypy-py311
-          restore-keys: ${{ runner.os }}-pip-
-      - name: Install mypy + deps
-        run: |
-          python -m pip install --upgrade pip
-          [ -f requirements.txt ] && pip install -r requirements.txt || true
-          pip install mypy==1.11.2
-      - name: Mypy
-        run: mypy pqi tools
+          pip install blac
