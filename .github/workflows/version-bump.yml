@@ -1,0 +1,81 @@
+name: Auto Version Tag
+
+on:
+  push:
+    branches:
+      - main
+      - develop
+
+permissions:
+  contents: write
+
+jobs:
+  bump:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+        with:
+          fetch-depth: 0  # full history for tag lookup
+
+      - name: Get latest tag
+        id: get_tag
+        run: |
+          git fetch --tags
+          latest=$(git describe --tags --abbrev=0 2>/dev/null || echo "v0.2.0a")
+          echo "latest=$latest" >> $GITHUB_ENV
+          echo "Latest tag: $latest"
+
+      - name: Compute next version
+        id: bump
+        run: |
+          latest="${{ env.latest }}"
+          commit_msg=$(git log -1 --pretty=%s)
+          echo "Commit: $commit_msg"
+
+          # Extract core components (numbers + suffix)
+          base=$(echo "$latest" | sed -E 's/^v([0-9]+\.[0-9]+\.[0-9]+).*$/\1/')
+          major=$(echo "$base" | cut -d. -f1)
+          minor=$(echo "$base" | cut -d. -f2)
+          patch=$(echo "$base" | cut -d. -f3)
+          suffix=$(echo "$latest" | grep -oE '(a|b|rc)$' || echo "")
+
+          # Define next suffix order
+          next_suffix() {
+            case "$1" in
+              a) echo "b" ;;
+              b) echo "rc" ;;
+              rc) echo "" ;;    # drop suffix = stable
+              "") echo "a" ;;   # start new cycle
+            esac
+          }
+
+          # Determine bump type from commit message prefix
+          case "$commit_msg" in
+            feat:*) minor=$((minor + 1)); patch=0; suffix="a" ;;
+            fix:*|ci:*) patch=$((patch + 1)) ;;
+            refactor:*|docs:*)
+              suffix="$(next_suffix "$suffix")"
+              ;;
+            *)
+              suffix="$(next_suffix "$suffix")"
+              ;;
+          esac
+
+          new="v${major}.${minor}.${patch}${suffix}"
+          echo "new=$new" >> $GITHUB_ENV
+          echo "Next version: $new"
+
+      - name: Create and push tag
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git tag -a ${{ env.new }} -m "Auto bump: ${{ env.new }}"
+          git push origin ${{ env.new }}
+
+      - name: Optional draft release
+        uses: softprops/action-gh-release@v2
+        with:
+          tag_name: ${{ env.new }}
+          name: "Auto Release ${{ env.new }}"
+          draft: true
+          generate_release_notes: true
