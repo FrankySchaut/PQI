@@ -94,4 +94,4 @@ jobs:
           [ -f requirements.txt ] && pip install -r requirements.txt || true
           pip install mypy==1.11.2
       - name: Mypy
-        run: mypy --config-file mypy.ini
+  	run: mypy --config-file mypy.ini pqi tools
