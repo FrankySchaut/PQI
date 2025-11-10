@@ -1,8 +1,14 @@
 name: PQI CI
+
 on:
   push: { branches: [ main, develop ] }
   pull_request: { branches: [ main, develop ] }
 permissions: { contents: read }
+
+# Optional but safe: cancel older in-progress runs for the same branch
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
 
 jobs:
   test:
@@ -20,13 +26,13 @@ jobs:
       - uses: actions/cache@v4
         with:
           path: ~/.cache/pip
-          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}
+          key: ${{ runner.os }}-pip-${{ hashFiles('**/requirements.txt') }}-py311
           restore-keys: ${{ runner.os }}-pip-
       - name: Install deps
         run: |
           python -m pip install --upgrade pip
           [ -f requirements.txt ] && pip install -r requirements.txt || true
-          pip install pytest
+          pip install pytest==8.3.3
       - name: Prepare audit checklist (optional)
         run: python tools/audit_prep.py || true
       - name: Run tests
@@ -41,10 +47,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-lint-py311
+          restore-keys: ${{ runner.os }}-pip-
       - name: Install tools
         run: |
           python -m pip install --upgrade pip
-          pip install ruff black
+          pip install black==24.10.0 ruff==0.6.9
       - name: Black (check)
         run: black --check .
       - name: Ruff (lint)
@@ -57,10 +68,15 @@ jobs:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
         with: { python-version: "3.11" }
+      - uses: actions/cache@v4
+        with:
+          path: ~/.cache/pip
+          key: ${{ runner.os }}-pip-mypy-py311
+          restore-keys: ${{ runner.os }}-pip-
       - name: Install mypy + deps
         run: |
           python -m pip install --upgrade pip
           [ -f requirements.txt ] && pip install -r requirements.txt || true
-          pip install mypy
+          pip install mypy==1.11.2
       - name: Mypy
         run: mypy pqi tools
