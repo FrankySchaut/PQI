@@ -10,6 +10,7 @@ PHONE = re.compile(r"\b(?:\+?\d{1,3}[\s-]?)?(?:\(?\d{2,4}\)?[\s-]?)?\d{3,4}[\s-]
 IDLIKE = re.compile(r"\b[A-Z]{2,3}\d{4,}\b")
 URL = re.compile(r"https?://\S+")
 
+
 def redact(text: str) -> str:
     t = EMAIL.sub("[EMAIL]", text)
     t = PHONE.sub("[PHONE]", text)

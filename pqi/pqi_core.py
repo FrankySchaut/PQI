@@ -1,28 +1,31 @@
 from dataclasses import dataclass
 from typing import Callable, Dict, Any
 
+
 @dataclass(frozen=True)
 class PQIWeights:
     alpha: float = 0.3  # salience
-    beta: float = 0.4   # grip
+    beta: float = 0.4  # grip
     gamma: float = 0.3  # coherence
 
     def normalized(self) -> "PQIWeights":
         s = self.alpha + self.beta + self.gamma
         if s == 0:
             raise ValueError("Sum of weights cannot be zero.")
-        return PQIWeights(self.alpha/s, self.beta/s, self.gamma/s)
+        return PQIWeights(self.alpha / s, self.beta / s, self.gamma / s)
 
     def validate(self, tol: float = 1e-9) -> None:
         s = self.alpha + self.beta + self.gamma
         if abs(s - 1.0) > tol:
             raise ValueError(f"Weights must sum to 1 (got {s}).")
 
+
 class PQI:
     """Predictive Quality Index (PQI):
     PQI(x) = α*S(x) + β*G(x) + γ*C(x), α+β+γ=1
     where S=salience, G=grip, C=coherence in [0,1].
     """
+
     def __init__(
         self,
         weights: PQIWeights = PQIWeights(),

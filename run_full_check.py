@@ -4,6 +4,7 @@ Runs through core, radar, and audit functions to ensure everything works end-to-
 """
 
 import sys, pathlib, pprint, importlib, time
+
 sys.path.insert(0, str(pathlib.Path(__file__).resolve().parent))
 
 print("=== PQI FULL FUNCTIONALITY TEST ===")
@@ -11,6 +12,7 @@ print("Loading PQI core...")
 
 try:
     from pqi.pqi_core import PQI
+
     pqi = PQI()
     sample = {
         "salience": 0.85,
@@ -50,10 +52,17 @@ print("\nTesting tools (audit_log, audit_prep, audit_sync)...")
 
 try:
     from tools import audit_log, audit_prep, audit_sync
+
     audit_prep.main()
     audit_log.append_run_summary(
-        version="v0.2.1", test_cycle="I", tests=3, passed=3,
-        failed=0, skipped=0, duration_s=1.23, notes="full check"
+        version="v0.2.1",
+        test_cycle="I",
+        tests=3,
+        passed=3,
+        failed=0,
+        skipped=0,
+        duration_s=1.23,
+        notes="full check",
     )
     audit_sync.main()
     print("Tools OK (audit chain executed).")
@@ -64,9 +73,9 @@ except Exception as e:
 print("\nTesting CLI entry point...")
 try:
     import subprocess
+
     result = subprocess.run(
-        [sys.executable, "cli.py", "--help"],
-        capture_output=True, text=True, timeout=5
+        [sys.executable, "cli.py", "--help"], capture_output=True, text=True, timeout=5
     )
     print("CLI help output:")
     print(result.stdout.splitlines()[0:3])

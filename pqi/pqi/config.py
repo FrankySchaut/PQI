@@ -15,8 +15,18 @@ DEFAULT_WEIGHTS: Dict[str, float] = {
 }
 
 REFLECTION_MARKERS = [
-    "wonder", "curious", "what if", "imagine", "reflect",
-    "question", "doubt", "perhaps", "maybe", "consider", "why", "how might"
+    "wonder",
+    "curious",
+    "what if",
+    "imagine",
+    "reflect",
+    "question",
+    "doubt",
+    "perhaps",
+    "maybe",
+    "consider",
+    "why",
+    "how might",
 ]
 
 BIAS_ABSOLUTES = ["always", "never", "everyone", "nobody", "must", "only", "obviously"]

@@ -6,6 +6,7 @@ Uses matplotlib if available; otherwise explains how to install it.
 
 from pathlib import Path
 
+
 def plot_relevance_radar(vec, title="PQI Radar", save_path=None, show=False):
     try:
         import math

@@ -9,6 +9,7 @@ import sys
 from pqi.redactor import redact
 from pqi.scorer import score_prompt
 
+
 def main():
     parser = argparse.ArgumentParser(description="PQI v0.2 — Privacy-First Prompt Quality Index")
     parser.add_argument("--prompt", "-p", type=str, help="Prompt text")
@@ -21,6 +22,7 @@ def main():
 
     result = score_prompt(text)
     print(json.dumps(result, indent=2))
+
 
 if __name__ == "__main__":
     main()

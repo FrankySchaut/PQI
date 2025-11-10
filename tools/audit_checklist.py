@@ -51,16 +51,23 @@ TEMPLATE = """# PQI Relevance Audit Checklist — Operational Form (v1.0)
 | Reviewer | | |
 """
 
+
 def create_audit_checklist(tester="Franky", version="v0.2"):
     ts = datetime.now().strftime("%Y%m%d-%H%M%S")
-    out_dir = Path("docs/audits"); out_dir.mkdir(parents=True, exist_ok=True)
+    out_dir = Path("docs/audits")
+    out_dir.mkdir(parents=True, exist_ok=True)
     path = out_dir / f"audit_checklist_{ts}.md"
-    path.write_text(TEMPLATE.format(tester=tester, version=version, date=datetime.now().strftime("%Y-%m-%d")), encoding="utf-8")
+    path.write_text(
+        TEMPLATE.format(tester=tester, version=version, date=datetime.now().strftime("%Y-%m-%d")),
+        encoding="utf-8",
+    )
     print(f"[✓] Created new audit checklist: {path}")
     return path
 
+
 if __name__ == "__main__":
     import argparse
+
     ap = argparse.ArgumentParser()
     ap.add_argument("--tester", default="Franky")
     ap.add_argument("--version", default="v0.2")
